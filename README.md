@@ -1,5 +1,9 @@
 # EMI Planner
 
+![EMI Planner](cover.png)
+
+Live: https://nishant2106.github.io/emi-planner/
+
 A fast, dependency-free loan planner. Enter a loan amount, interest rate and tenure to see:
 
 - **Monthly EMI**, total interest and total amount paid
