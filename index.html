@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EMI Planner</title>
+  <meta name="description" content="Plan a loan: EMI, total interest, amortization schedule and how much prepayments save you." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">₹</span>
+      <div>
+        <h1>EMI Planner</h1>
+        <p class="sub">See what a loan really costs, and how much prepaying saves.</p>
+      </div>
+    </div>
+    <button id="share" class="ghost" type="button">Copy share link</button>
+  </header>
+
+  <main class="layout">
+    <section class="card inputs" aria-label="Loan inputs">
+      <h2>Your loan</h2>
+
+      <label class="field">
+        <span class="row"><span>Loan amount</span><output id="amountOut"></output></span>
+        <input id="amount" type="range" min="10000" max="10000000" step="10000" value="500000" />
+      </label>
+
+      <label class="field">
+        <span class="row"><span>Interest rate (p.a.)</span><output id="rateOut"></output></span>
+        <input id="rate" type="range" min="1" max="30" step="0.1" value="11.5" />
+      </label>
+
+      <label class="field">
+        <span class="row"><span>Tenure</span><output id="tenureOut"></output></span>
+        <input id="tenure" type="range" min="3" max="360" step="1" value="36" />
+      </label>
+
+      <label class="field">
+        <span class="row"><span>Extra payment every month</span><output id="extraOut"></output></span>
+        <input id="extra" type="range" min="0" max="100000" step="500" value="0" />
+      </label>
+
+      <label class="field inline">
+        <span>Currency</span>
+        <select id="currency">
+          <option value="INR">₹ INR</option>
+          <option value="USD">$ USD</option>
+          <option value="EUR">€ EUR</option>
+          <option value="GBP">£ GBP</option>
+        </select>
+      </label>
+    </section>
+
+    <section class="card summary" aria-label="Summary">
+      <div class="emi">
+        <span class="label">Monthly EMI</span>
+        <strong id="emi">–</strong>
+      </div>
+      <div class="stats">
+        <div><span class="label">Principal</span><b id="principal">–</b></div>
+        <div><span class="label">Total interest</span><b id="interest">–</b></div>
+        <div><span class="label">Total paid</span><b id="total">–</b></div>
+      </div>
+      <div class="split">
+        <canvas id="donut" width="160" height="160" aria-label="Principal versus interest"></canvas>
+        <ul class="legend">
+          <li><i class="sw p"></i>Principal <b id="pPct"></b></li>
+          <li><i class="sw i"></i>Interest <b id="iPct"></b></li>
+        </ul>
+      </div>
+      <div id="savings" class="savings" hidden></div>
+    </section>
+
+    <section class="card wide" aria-label="Balance over time">
+      <div class="row"><h2>Outstanding balance</h2>
+        <ul class="legend inline"><li><i class="sw base"></i>Without extra</li><li><i class="sw p"></i>With extra</li></ul>
+      </div>
+      <canvas id="chart" height="260" aria-label="Outstanding balance chart"></canvas>
+    </section>
+
+    <section class="card wide" aria-label="Amortization schedule">
+      <div class="row">
+        <h2>Schedule</h2>
+        <div class="seg" role="tablist">
+          <button class="on" data-view="year" type="button">Yearly</button>
+          <button data-view="month" type="button">Monthly</button>
+        </div>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th id="periodHead">Year</th><th>Principal</th><th>Interest</th><th>Extra</th><th>Balance</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <button id="csv" class="ghost" type="button">Download CSV</button>
+    </section>
+  </main>
+
+  <footer class="foot">Built with plain HTML, CSS and JavaScript · no tracking · your numbers never leave the browser</footer>
+  <script src="app.js"></script>
+</body>
+</html>
